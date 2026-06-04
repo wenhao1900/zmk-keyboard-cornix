@@ -105,19 +105,5 @@ col_pins = ["P0_30", "P0_31", "P0_29", "P0_02", "P1_13", "P0_10", "P0_09"]
 [rmk]
 split_peripherals_num = 1
 
-[behavior]
-
-# Mouse key configuration — MUCH faster than RMK defaults
-[behavior.mouse_key]
-initial_delay_ms = 20          # Start moving in 20ms (default: 100)
-repeat_interval_ms = 10        # 10ms between moves (default: 20)
-move_delta = 10                # 10 pixels per step (default: 5)
-max_speed = 10                 # 10x speed multiplier (default: 3)
-ticks_to_max = 15              # Reach max in 15 ticks (default: 50)
-wheel_initial_delay_ms = 20    # Wheel starts in 20ms (default: 100)
-wheel_repeat_interval_ms = 30  # 30ms between wheel ticks (default: 80)
-wheel_delta = 2                # 2 wheel units per tick (default: 1)
-wheel_max_speed = 5            # 5x wheel speed (default: 2)
-wheel_ticks_to_max = 15        # Wheel to max in 15 ticks (default: 40)
-move_max = 50                  # Max 50px per report (default: 25)
-wheel_max = 8                  # Max 8 wheel per report (default: 4)
+# Mouse speed is configured via Rust code in src/central.rs and src/peripheral.rs
+# See MouseKeyConfig in RMK documentation
