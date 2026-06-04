@@ -305,9 +305,9 @@
 
             bindings = <
     &none      &none     &none     &none     &none     &none
-    &macro 0   &none     &none     &none     &none     &none
-    &macro 1   &none     &none     &none     &none     &none
-    &macro 2   &none     &none     &none     &none     &none
+    &none      &none     &none     &none     &none     &none
+    &none      &none     &none     &none     &none     &none
+    &none      &none     &none     &none     &none     &none
 
     &none      &none     &none     &none     &none     &none
     &none      &none     &none     &none     &none     &none
