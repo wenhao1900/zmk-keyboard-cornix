@@ -1,0 +1,111 @@
+name: Build RMK Firmware (Vial)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "rmk-cornix/**"
+
+jobs:
+  build-central:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          targets: thumbv7em-none-eabihf
+
+      - name: Install flip-link
+        run: cargo install flip-link
+
+      - name: Build central (left half)
+        working-directory: rmk-cornix
+        run: cargo build --release --bin central
+
+      - name: Generate UF2
+        working-directory: rmk-cornix
+        run: |
+          cargo install uf2conv 2>/dev/null || true
+          arm-none-eabi-objcopy -O binary target/thumbv7em-none-eabihf/release/central central.bin
+          python3 -c "
+          import sys
+          data = open('central.bin', 'rb').read()
+          # UF2 header
+          uf2_block_size = 512
+          payload_size = 256
+          num_blocks = (len(data) + payload_size - 1) // payload_size
+          with open('cornix_left_rmk.uf2', 'wb') as f:
+              for i in range(num_blocks):
+                  chunk = data[i*payload_size:(i+1)*payload_size]
+                  if len(chunk) < payload_size:
+                      chunk += b'\\x00' * (payload_size - len(chunk))
+                  block = bytearray(uf2_block_size)
+                  block[0:4] = bytes([0x55, 0x46, 0x32, 0x0A])  # magic
+                  block[4:8] = bytes([0x57, 0x51, 0x4D, 0x4B])  # family
+                  block[8:12] = (0x20000000 + i * payload_size).to_bytes(4, 'little')
+                  block[12:16] = payload_size.to_bytes(4, 'little')
+                  block[16:20] = i.to_bytes(4, 'little')
+                  block[20:24] = num_blocks.to_bytes(4, 'little')
+                  block[24:28] = 0x4E524658.to_bytes(4, 'little')  # nRF52840 family
+                  block[28:32] = b'\\x00' * 4
+                  block[32:288] = chunk
+                  f.write(block)
+          print(f'UF2 generated: {num_blocks} blocks')
+          "
+
+      - name: Upload central artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cornix_left_rmk
+          path: rmk-cornix/cornix_left_rmk.uf2
+
+  build-peripheral:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          targets: thumbv7em-none-eabihf
+
+      - name: Install flip-link
+        run: cargo install flip-link
+
+      - name: Build peripheral (right half)
+        working-directory: rmk-cornix
+        run: cargo build --release --bin peripheral
+
+      - name: Generate UF2
+        working-directory: rmk-cornix
+        run: |
+          arm-none-eabi-objcopy -O binary target/thumbv7em-none-eabihf/release/peripheral peripheral.bin
+          python3 -c "
+          data = open('peripheral.bin', 'rb').read()
+          payload_size = 256
+          num_blocks = (len(data) + payload_size - 1) // payload_size
+          with open('cornix_right_rmk.uf2', 'wb') as f:
+              for i in range(num_blocks):
+                  chunk = data[i*payload_size:(i+1)*payload_size]
+                  if len(chunk) < payload_size:
+                      chunk += b'\\x00' * (payload_size - len(chunk))
+                  block = bytearray(512)
+                  block[0:4] = bytes([0x55, 0x46, 0x32, 0x0A])
+                  block[4:8] = bytes([0x57, 0x51, 0x4D, 0x4B])
+                  block[8:12] = (0x20000000 + i * payload_size).to_bytes(4, 'little')
+                  block[12:16] = payload_size.to_bytes(4, 'little')
+                  block[16:20] = i.to_bytes(4, 'little')
+                  block[20:24] = num_blocks.to_bytes(4, 'little')
+                  block[24:28] = 0x4E524658.to_bytes(4, 'little')
+                  block[32:288] = chunk
+                  f.write(block)
+          print(f'UF2 generated: {num_blocks} blocks')
+          "
+
+      - name: Upload peripheral artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cornix_right_rmk
+          path: rmk-cornix/cornix_right_rmk.uf2

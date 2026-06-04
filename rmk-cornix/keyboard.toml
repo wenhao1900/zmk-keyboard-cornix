@@ -1,0 +1,123 @@
+# Cornix RMK Keyboard Configuration
+# Auto-generated from cornix.vil
+
+[keyboard]
+name = "cornix"
+product_name = "Cornix"
+vendor_id = 0x4C4B
+product_id = 0x4643
+manufacturer = "Cornix"
+chip = "nrf52840"
+
+[layout]
+rows = 4
+cols = 14
+layers = 10
+keymap = [
+    [
+        ["Tab", "Q", "W", "E", "R", "T", "_", "Delete", "P", "O", "I", "U", "Y", "_"],
+        ["CapsLock", "A", "S", "MT(D, LAlt)", "F", "G", "_", "Quote", "Semicolon", "L", "K", "J", "H", "AudioMute"],
+        ["LShift", "Z", "X", "C", "V", "B", "WM(Kp0, LGui)", "Up", "Slash", "Dot", "Comma", "M", "N", "_"],
+        ["MT(MouseBtn2, LCtrl)", "WM(V, LGui)", "MouseBtn1", "LAlt", "LT(2, Backspace)", "MT(Space, LGui)", "_", "Down", "Right", "Left", "RCtrl", "LT(3, Enter)", "LT(1, Comma)", "_"]
+    ],
+    [
+        ["Grave", "_", "_", "_", "_", "Kc9", "_", "Backslash", "_", "_", "_", "Kc6", "Kc3", "_"],
+        ["_", "_", "_", "_", "Kc0", "Kc8", "_", "_", "_", "Equal", "Minus", "Kc5", "Kc2", "MediaPlayPause"],
+        ["LShift", "_", "_", "_", "_", "Kc7", "AudioMute", "_", "_", "RightBracket", "LeftBracket", "Kc4", "Kc1", "_"],
+        ["_", "_", "_", "_", "LShift", "Space", "_", "_", "_", "_", "_", "_", "_", "_"]
+    ],
+    [
+        ["Escape", "TG(5)", "MouseBtn5", "MouseBtn4", "WM(Q, LAlt)", "WM(A, LAlt)", "_", "_", "_", "_", "Kc9", "Kc8", "Kc7", "_"],
+        ["_", "_", "_", "Enter", "_", "_", "_", "_", "_", "_", "Kc6", "Kc5", "Kc4", "MouseBtn3"],
+        ["_", "_", "_", "_", "_", "_", "AudioMute", "_", "_", "_", "Kc3", "Kc2", "Kc1", "_"],
+        ["_", "_", "_", "_", "LShift", "Space", "_", "_", "_", "_", "_", "Kc0", "_", "_"]
+    ],
+    [
+        ["Escape", "Kc1", "Kc2", "Kc3", "Kc4", "Kc5", "_", "_", "Kc0", "Kc9", "Kc8", "Kc7", "Kc6", "_"],
+        ["_", "F1", "F2", "F3", "F4", "F5", "_", "_", "F10", "F9", "F8", "F7", "F6", "MouseBtn3"],
+        ["LShift", "F11", "F12", "_", "_", "_", "AudioMute", "_", "_", "Dot", "Comma", "_", "_", "_"],
+        ["_", "_", "_", "_", "MT(Backspace, LShift)", "_", "_", "_", "_", "_", "_", "_", "MO(4)", "_"]
+    ],
+    [
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"],
+        ["MACRO(0)", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "MouseBtn3"],
+        ["MACRO(1)", "_", "_", "_", "_", "_", "AudioMute", "_", "_", "_", "_", "_", "_", "_"],
+        ["MACRO(2)", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"]
+    ],
+    [
+        ["Tab", "TG(5)", "W", "_", "_", "_", "_", "_", "TG(5)", "MouseWheelRight", "MouseWheelUp", "MouseWheelDown", "MouseWheelLeft", "_"],
+        ["Escape", "_", "_", "Enter", "_", "_", "_", "_", "_", "MouseRight", "MouseUp", "MouseDown", "MouseLeft", "AudioMute"],
+        ["_", "_", "_", "C", "V", "_", "WM(Kp0, LGui)", "Up", "_", "_", "_", "_", "_", "_"],
+        ["MouseBtn2", "WM(C, LGui)", "MouseBtn1", "_", "Backspace", "MT(Space, LGui)", "_", "Down", "Right", "Left", "_", "_", "MouseBtn1", "_"]
+    ],
+    [
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "MouseBtn3"],
+        ["_", "_", "_", "_", "_", "_", "AudioMute", "_", "_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"]
+    ],
+    [
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "MouseBtn3"],
+        ["_", "_", "_", "_", "_", "_", "AudioMute", "_", "_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"]
+    ],
+    [
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "MouseBtn3"],
+        ["_", "_", "_", "_", "_", "_", "AudioMute", "_", "_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"]
+    ],
+    [
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "MouseBtn3"],
+        ["_", "_", "_", "_", "_", "_", "AudioMute", "_", "_", "_", "_", "_", "_", "_"],
+        ["_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"]
+    ]
+]
+
+[ble]
+enabled = true
+
+[split]
+connection = "ble"
+
+[split.central]
+rows = 4
+cols = 7
+row_offset = 0
+col_offset = 0
+
+[split.central.matrix]
+row_pins = ["P0_30", "P0_31", "P0_29", "P0_02"]
+col_pins = ["P0_28", "P0_03", "P1_10", "P1_11", "P1_13", "P0_09", "P0_10"]
+
+[[split.peripheral]]
+rows = 4
+cols = 7
+row_offset = 0
+col_offset = 7
+
+[split.peripheral.matrix]
+row_pins = ["P1_09", "P0_28", "P0_03", "P1_10"]
+col_pins = ["P0_30", "P0_31", "P0_29", "P0_02", "P1_13", "P0_10", "P0_09"]
+
+[rmk]
+split_peripherals_num = 1
+
+[behavior]
+
+# Mouse key configuration — MUCH faster than RMK defaults
+[behavior.mouse_key]
+initial_delay_ms = 20          # Start moving in 20ms (default: 100)
+repeat_interval_ms = 10        # 10ms between moves (default: 20)
+move_delta = 10                # 10 pixels per step (default: 5)
+max_speed = 10                 # 10x speed multiplier (default: 3)
+ticks_to_max = 15              # Reach max in 15 ticks (default: 50)
+wheel_initial_delay_ms = 20    # Wheel starts in 20ms (default: 100)
+wheel_repeat_interval_ms = 30  # 30ms between wheel ticks (default: 80)
+wheel_delta = 2                # 2 wheel units per tick (default: 1)
+wheel_max_speed = 5            # 5x wheel speed (default: 2)
+wheel_ticks_to_max = 15        # Wheel to max in 15 ticks (default: 40)
+move_max = 50                  # Max 50px per report (default: 25)
+wheel_max = 8                  # Max 8 wheel per report (default: 4)
